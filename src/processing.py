@@ -15,6 +15,6 @@ def sort_by_date(list_of_dictionaries: list, reverse: bool = True) -> list:
     """
     Функция, которая принимает список словарей и необязательный параметр,
     задающий порядок сортировки (по умолчанию — убывание).
-    Функция должна возвращать новый список, отсортированный по дате (date)
+    Функция возвращает новый список, отсортированный по дате (date)
     """
     return sorted(list_of_dictionaries, key=lambda x: x["date"], reverse=reverse)
