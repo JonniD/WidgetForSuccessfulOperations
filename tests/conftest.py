@@ -39,3 +39,25 @@ def account2():
 @pytest.fixture
 def account3():
     return "736A4108430135874305"
+
+@pytest.fixture
+def card1():
+    return "Maestro 1596837868705199"
+
+@pytest.fixture
+def card2():
+    return "Visa Classic 6831982476737658"
+
+@pytest.fixture
+def card3():
+    return "MasterCard 7158300734726758"
+@pytest.fixture
+def account1():
+    return "Счет 64686473678894779589"
+
+@pytest.fixture
+def account2():
+    return "Счет 35383033474447895560"
+@pytest.fixture
+def date():
+    return "2024-03-11T02:26:18.671407"
