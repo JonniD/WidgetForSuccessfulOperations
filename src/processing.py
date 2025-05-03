@@ -18,3 +18,5 @@ def sort_by_date(list_of_dictionaries: list, reverse: bool = True) -> list:
     Функция возвращает новый список, отсортированный по дате (date)
     """
     return sorted(list_of_dictionaries, key=lambda x: x["date"], reverse=reverse)
+
+
