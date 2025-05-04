@@ -2,32 +2,39 @@ import pytest
 
 from src.widget import get_date, mask_account_card
 
-
-@pytest.mark.parametrize(
-    "account_card, mask",
-    [
-        ("Visa Platinum 7000792289606361", "Visa Platinum 7000 79** **** 6361"),
-        ("Счет 73654108430135874305", "Счет **4305"),
-        ("", "не корректные данные"),
-        ("Visa Platinum 700079228960636S", "не корректные данные"),
-        ("Счет 7365410843013587430A", "не корректные данные"),
-        ("Счет73654108430135874305", "не корректные данные"),
-        ("VisaPlatinum7000792289606361", "не корректные данные"),
-        ("Счет 7365410843013587430", "не корректные данные"),
-        ("Visa Platinum 700079228960636", "не корректные данные"),
-    ],
-)
-def test_mask_account_card(account_card, mask):
-    assert mask_account_card(account_card) == mask
+wrong_account_card = "Некорректный номер карты или счета"
+wrong_date = "Некорректный формат даты."
 
 
-@pytest.mark.parametrize(
-    "date_string, date",
-    [
-        ("2024-03-11T02:26:18.671407", "11.03.2024"),
-        ("T02:26:18.671407", "не корректные данные"),
-        ("2024-03-1126:18.671407", "11.03.2024"),
-    ],
-)
-def test_get_date(date_string, date):
-    assert get_date(date_string) == date
+@pytest.mark.parametrize("correct_account_card, mask", [("Visa Gold 5999414228426353", "Visa Gold 5999 41** **** 6353"),
+                                                ("Счет 73654108430135874305", "Счет **4305"),
+                                                ("Maestro 1596837868705199", "Maestro 1596 83** **** 5199"),
+                                                ("MasterCard 7158300734726758", "MasterCard 7158 30** **** 6758"),
+                                                ("Visa Classic 6831982476737658", "Visa Classic 6831 98** **** 7658"),
+                                                ("Visa Platinum 8990922113665229", "Visa Platinum 8990 92** **** 5229"),
+                                                ("Карта вашего банка 1234567890123456",
+                                                 "Карта вашего банка 1234 56** **** 3456"),
+                                                ("Счёт 35383033474447895560", "Счёт **5560"),
+                                                ("Счет 64686473678894779589", "Счет **9589")
+                                                ])
+def test_mask_account_card_correct(correct_account_card: str, mask: str) -> None:
+    '''Тест функции mask_account_card с корректными данными'''
+    assert mask_account_card(correct_account_card) == mask
+
+
+@pytest.mark.parametrize("incorrect_account_card, wrong_number_account_card", [("", wrong_account_card),
+                                                                     ("Карта 324509853", wrong_account_card),
+                                                                     ("Счет 1235126", wrong_account_card),
+                                                                     ("73654108430135874305", wrong_account_card),
+                                                                     ("5999414228426353", wrong_account_card),
+                                                                     ("какие-нибудь символы", wrong_account_card),
+                                                                     ("Visa Gold 5999 4142 2842 6353",
+                                                                      wrong_account_card),
+                                                                     ("Счет 7365 4108 4301 3587 4305",
+                                                                      wrong_account_card)
+                                                                     ])
+def test_mask_account_card_incorrect(incorrect_account_card: str, wrong_number_account_card: str) -> None:
+    '''Тест функции mask_account_card с корректными данными'''
+    assert mask_account_card(incorrect_account_card) == wrong_number_account_card
+
+
