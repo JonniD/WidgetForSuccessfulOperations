@@ -1,5 +1,18 @@
 import pytest
 
+@pytest.fixture
+def card_number() -> str:
+    '''корректный номер карты'''
+    return "7000792289606361"
+
+@pytest.fixture
+def account() -> str:
+    '''корректный аккаунт'''
+    return "73654108430135874305"
+
+
+
+
 
 @pytest.fixture
 def list_of_dic():
