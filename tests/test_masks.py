@@ -48,6 +48,6 @@ def test_get_mask_account_correct(account: str) -> None:
         ("Счет номер", wrong_number_account),
     ],
 )
-def test_get_mask_account(incorrect_account: str, wrong_account: str):
+def test_get_mask_account(incorrect_account: str, wrong_account: str) -> None:
     """Тест функции get_mask_account с использованием некорректных данных"""
     assert get_mask_account(incorrect_account) == wrong_account

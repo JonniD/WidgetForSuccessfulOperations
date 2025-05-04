@@ -1,4 +1,4 @@
-def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list|str:
+def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list | str:
     """
     Функция, которая принимает список словарей и опционально значение для ключа state(по умолчанию 'EXECUTED').
     Функция возвращает новый список словарей, содержащий только те словари,
@@ -14,7 +14,7 @@ def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list
         return "Некорректные данные"
 
 
-def sort_by_date(list_of_dictionaries: list, reverse: bool = True) -> list|str:
+def sort_by_date(list_of_dictionaries: list, reverse: bool = True) -> list | str:
     """
     Функция, которая принимает список словарей и необязательный параметр,
     задающий порядок сортировки (по умолчанию — убывание).
