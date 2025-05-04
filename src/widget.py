@@ -26,8 +26,9 @@ def get_date(date_and_time: str) -> str:
     Функция, которая принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
     и возвращает строку с датой в формате "ДД.ММ.ГГГГ"
     """
-    date_list = date_and_time.split("-")
-    if len(date_list) < 3:
-        return 'не корректные данные'
-    date = f"{date_list[2][:2]}.{date_list[1]}.{date_list[0]}"
-    return date
+    if len(date_and_time) == 26 and date_and_time[4] == '-' and date_and_time[7] == '-':
+        date_list = date_and_time.split("-")
+        date = f"{date_list[2][:2]}.{date_list[1]}.{date_list[0]}"
+        return date
+    else:
+        return "Некорректный формат даты."
