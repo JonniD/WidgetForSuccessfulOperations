@@ -47,6 +47,7 @@ def test_get_date_correct(date_correct: str) -> None:
     '''Тест функции get_date с корректными данными'''
     assert get_date(date_correct) == "11.03.2024"
 
+
 @pytest.mark.parametrize(
     "date_incorrect, expected",
     [
@@ -59,10 +60,6 @@ def test_get_date_correct(date_correct: str) -> None:
 )
 def test_get_date_incorrect(date_incorrect: str, expected: str) -> None:
     """
-    Тестируем функцию get_date с использованием некорректных данных.
-    В данном тесте используется параметризация.
-    :param date: Входные данные в виде строки.
-    :param expected: Ожидаемый результат.
-    :return: Результат работы теста.
+    Тест функции get_date с использованием некорректных данных.
     """
     assert get_date(date_incorrect) == expected
