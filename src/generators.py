@@ -8,6 +8,7 @@ def filter_by_currency(all_transactions, name_currency: str):
 
 def transaction_descriptions(transactions):
     for transaction in transactions:
+        if "description" in transaction:
             yield transaction["description"]
 
 
@@ -17,6 +18,6 @@ def card_number_generator(start,end):
         yield f'{str_num[:4]} {str_num[4:8]} {str_num[8:12]} {str_num[12:]}'
 
 
-for card_number in card_number_generator(5000000000000, 5000000000011):
+for card_number in card_number_generator(4000123456789010, 4000123456789015):
     print(card_number)
 

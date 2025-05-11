@@ -1,6 +1,6 @@
 import pytest
-
-from src.generators import filter_by_currency, transaction_descriptions
+import re
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 
 def test_filter_by_currency_correct_USD(transactions):
@@ -94,6 +94,55 @@ def test_transaction_descriptions_USD(transactions):
                            'Перевод со счета на счет', 'Перевод с карты на карту', 'Перевод организации']
 
 
-def test_transaction_descriptions_non():
-    result = list(transaction_descriptions([]))
-    assert result == []
+@pytest.mark.parametrize(
+    "incorrect_, wrong_",
+    [
+        ([], []),
+        ([
+             {
+                 "id": 939719570,
+                 "state": "EXECUTED",
+                 "date": "2018-06-30T02:08:58.425572",
+                 "operationAmount": {
+                     "amount": "9824.07",
+                     "currency": {
+                         "name": "USD",
+                         "code": "USD"
+                     }
+                 },
+                 "from": "Счет 75106830613657916952",
+                 "to": "Счет 11776614605963066702"
+             }], [])
+    ])
+def test_transaction_descriptions_non(incorrect_, wrong_):
+    result = list(transaction_descriptions(incorrect_))
+    assert result == wrong_
+
+
+def test_card_number_format():
+    '''еста для проверки формата номеров карт'''
+    start, stop = 4000123456789010, 4000123456789015
+    pattern = re.compile(r"\d{4} \d{4} \d{4} \d{4}")
+    for card_number in card_number_generator(start, stop):
+        assert pattern.match(card_number), f"Неверный формат: {card_number}"
+
+
+def test_card_number_range():
+    '''тестирования генерации номеров в заданном диапазоне'''
+    start, stop = 4000123456789010, 4000123456789015
+    for card_number in card_number_generator(start, stop):
+        card_number_int = int(card_number.replace(' ', ''))
+        assert start <= card_number_int <= stop, f"Номер вне диапазона: {card_number}"
+
+
+def test_card_number_boundaries():
+    '''проверку граничных значений '''
+    start, stop = 4000123456789010, 4000123456789015
+    generated_cards = list(card_number_generator(start, stop))
+
+    # Проверяем, что первый и последний номера равны start и stop
+    first_card = int(generated_cards[0].replace(' ', ''))
+    last_card = int(generated_cards[-1].replace(' ', ''))
+
+    assert first_card == start, f"Первый номер не равен start: {generated_cards[0]}"
+    assert last_card == stop, f"Последний номер не равен stop: {generated_cards[-1]}"
