@@ -3,7 +3,8 @@ import re
 from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 
-def test_filter_by_currency_correct_USD(transactions):
+def test_filter_by_currency_correct_USD(transactions: list[dict[str, str | int]]) -> None:
+    '''тест функции filter_by_currency_correct с корректными данными валюта USD'''
     usd_transactions = filter_by_currency(transactions, "USD")
     list_result = []
     for _ in range(2):
@@ -39,7 +40,8 @@ def test_filter_by_currency_correct_USD(transactions):
     }]
 
 
-def test_filter_by_currency_correct_RUB(transactions):
+def test_filter_by_currency_correct_RUB(transactions: list[dict[str, str | int]]) -> None:
+    '''тест функции filter_by_currency_correct с корректными данными валюта руб.'''
     usd_transactions = filter_by_currency(transactions, "руб.")
     list_result = []
     for _ in range(2):
@@ -75,17 +77,20 @@ def test_filter_by_currency_correct_RUB(transactions):
     }]
 
 
-def test_filter_by_currency_correct_none():
+def test_filter_by_currency_correct_none() -> None:
+    '''тест функции filter_by_currency_correct с пустым списком'''
     result = list(filter_by_currency([], "USD"))
     assert result == []
 
 
-def test_filter_by_currency_correct_EU(transactions):
+def test_filter_by_currency_correct_EU(transactions: list[dict[str, str | int]]) -> None:
+    '''тест функции filter_by_currency_correct с некорректной валютой'''
     result = list(filter_by_currency(transactions, "EU"))
     assert result == []
 
 
-def test_transaction_descriptions_USD(transactions):
+def test_transaction_descriptions(transactions: list[dict[str, str | int]]) -> None:
+    '''тест функции transaction_descriptions с корректными данными'''
     descriptions = transaction_descriptions(transactions)
     list_result = []
     for _ in range(5):
@@ -95,7 +100,7 @@ def test_transaction_descriptions_USD(transactions):
 
 
 @pytest.mark.parametrize(
-    "incorrect_, wrong_",
+    "incorrect, wrong",
     [
         ([], []),
         ([
@@ -114,13 +119,14 @@ def test_transaction_descriptions_USD(transactions):
                  "to": "Счет 11776614605963066702"
              }], [])
     ])
-def test_transaction_descriptions_non(incorrect_, wrong_):
-    result = list(transaction_descriptions(incorrect_))
-    assert result == wrong_
+def test_transaction_descriptions_non(incorrect: list[dict[str, str | int]], wrong) -> None:
+    '''тест функции transaction_descriptions с некорректными данными'''
+    result = list(transaction_descriptions(incorrect))
+    assert result == wrong
 
 
 def test_card_number_format():
-    '''еста для проверки формата номеров карт'''
+    '''тест функции card_number_format для проверки формата номеров карт'''
     start, stop = 4000123456789010, 4000123456789015
     pattern = re.compile(r"\d{4} \d{4} \d{4} \d{4}")
     for card_number in card_number_generator(start, stop):
@@ -128,7 +134,7 @@ def test_card_number_format():
 
 
 def test_card_number_range():
-    '''тестирования генерации номеров в заданном диапазоне'''
+    '''тест функции card_number_format на генерацию номеров в заданном диапазоне'''
     start, stop = 4000123456789010, 4000123456789015
     for card_number in card_number_generator(start, stop):
         card_number_int = int(card_number.replace(' ', ''))
@@ -136,7 +142,7 @@ def test_card_number_range():
 
 
 def test_card_number_boundaries():
-    '''проверку граничных значений '''
+    '''тест функции card_number_format на граничные значения'''
     start, stop = 4000123456789010, 4000123456789015
     generated_cards = list(card_number_generator(start, stop))
 

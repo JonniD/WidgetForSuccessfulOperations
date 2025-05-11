@@ -40,7 +40,8 @@ def processing_data_wrong() -> list[dict[str, str | int]]:
 
 
 @pytest.fixture()
-def transactions():
+def transactions() -> list[dict[str, str | int]]:
+    '''корректные транзакции'''
     return (
         [
             {
