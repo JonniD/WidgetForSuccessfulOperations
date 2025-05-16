@@ -22,6 +22,7 @@ def log(filename=None):
                 else:
                     print(message)
                 raise
-        return wrapper
-    return decorator
 
+        return wrapper
+
+    return decorator

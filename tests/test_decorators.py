@@ -5,7 +5,6 @@ import os
 
 
 def test_log_success(capsys):
-
     @log()
     def my_function(x, y):
         return x + y
@@ -32,12 +31,33 @@ def test_log_to_file():
     assert "test_func ok" in content
 
 
-
 def test_log_error(capsys):
     @log()
     def test_func(a, b):
         raise ValueError('test error')
 
-    test_func(1, 2)
+    try:
+        test_func(1, 2)
+    except ValueError:
+        pass
+
     captured = capsys.readouterr()
     assert 'test_func error: ValueError. Inputs: (1, 2), {}\n' in captured.out
+
+def test_log_error_file(capsys):
+    with tempfile.NamedTemporaryFile(delete=False) as tmp:
+        filename = tmp.name
+    @log(filename=filename)
+    def test_func(a, b):
+        raise ValueError('test error')
+
+    try:
+        test_func(1, 2)
+    except ValueError:
+        pass
+
+    with open(filename) as f:
+        content = f.read()
+
+    os.unlink(filename)
+    assert 'test_func error: ValueError. Inputs: (1, 2), {}\n' in content
