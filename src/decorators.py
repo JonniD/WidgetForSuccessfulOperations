@@ -1,10 +1,14 @@
 from functools import wraps
+from typing import Any, Callable, Literal
 
 
-def log(filename=None):
-    def decorator(func):
+def log(filename: Literal[False] | str = False) -> Callable[[Any], Any]:
+    """Функция-декоратор для ведения логов.
+    Записывает лог в файл, если задано имя файла, и в консоль - если нет."""
+
+    def decorator(func: Callable[[Any], Any]) -> Callable[[Any], Any]:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 result = func(*args, **kwargs)
                 message = f"{func.__name__} ok"

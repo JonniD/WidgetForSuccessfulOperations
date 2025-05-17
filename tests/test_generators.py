@@ -107,7 +107,7 @@ def test_transaction_descriptions(transactions: list[dict[str, str | int]]) -> N
         ),
     ],
 )
-def test_transaction_descriptions_non(incorrect: list[dict[str, str | int]], wrong) -> None:
+def test_transaction_descriptions_non(incorrect: list[dict[str, str | int]], wrong: list) -> None:
     """тест функции transaction_descriptions с некорректными данными"""
     result = list(transaction_descriptions(incorrect))
     assert result == wrong

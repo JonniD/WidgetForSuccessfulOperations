@@ -1,25 +1,26 @@
-import pytest
-from src.decorators import log
-import tempfile
 import os
+import tempfile
+from typing import Any
+
+from src.decorators import log
 
 
-def test_log_success(capsys):
+def test_log_success(capsys: Any) -> None:
     @log()
-    def my_function(x, y):
+    def my_function(x: int, y: int) -> int:
         return x + y
 
     my_function(1, 2)
     captured = capsys.readouterr()
-    assert captured.out == 'my_function ok\n'
+    assert captured.out == "my_function ok\n"
 
 
-def test_log_to_file():
+def test_log_to_file() -> None:
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
         filename = tmp.name
 
     @log(filename=filename)
-    def test_func(x):
+    def test_func(x: int) -> int:
         return x
 
     test_func(1)
@@ -31,10 +32,10 @@ def test_log_to_file():
     assert "test_func ok" in content
 
 
-def test_log_error(capsys):
+def test_log_error(capsys: Any) -> None:
     @log()
-    def test_func(a, b):
-        raise ValueError('test error')
+    def test_func(a: int, b: int) -> None:
+        raise ValueError("test error")
 
     try:
         test_func(1, 2)
@@ -42,14 +43,16 @@ def test_log_error(capsys):
         pass
 
     captured = capsys.readouterr()
-    assert 'test_func error: ValueError. Inputs: (1, 2), {}\n' in captured.out
+    assert "test_func error: ValueError. Inputs: (1, 2), {}\n" in captured.out
 
-def test_log_error_file(capsys):
+
+def test_log_error_file(capsys: Any) -> None:
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
         filename = tmp.name
+
     @log(filename=filename)
-    def test_func(a, b):
-        raise ValueError('test error')
+    def test_func(a: int, b: int) -> None:
+        raise ValueError("test error")
 
     try:
         test_func(1, 2)
@@ -60,4 +63,4 @@ def test_log_error_file(capsys):
         content = f.read()
 
     os.unlink(filename)
-    assert 'test_func error: ValueError. Inputs: (1, 2), {}\n' in content
+    assert "test_func error: ValueError. Inputs: (1, 2), {}\n" in content
