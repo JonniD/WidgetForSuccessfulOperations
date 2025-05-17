@@ -6,6 +6,8 @@ from src.decorators import log
 
 
 def test_log_success(capsys: Any) -> None:
+    """тест функции - декоратора log с функцией которая не вызывает ошибку и не задан файл для записи лога"""
+
     @log()
     def my_function(x: int, y: int) -> int:
         return x + y
@@ -16,6 +18,7 @@ def test_log_success(capsys: Any) -> None:
 
 
 def test_log_to_file() -> None:
+    """тест функции - декоратора log с функцией которая не вызывает ошибку и задан файл для записи лога"""
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
         filename = tmp.name
 
@@ -33,6 +36,8 @@ def test_log_to_file() -> None:
 
 
 def test_log_error(capsys: Any) -> None:
+    """тест функции - декоратора log с функцией которая вызывает ошибку и не задан файл для записи лога"""
+
     @log()
     def test_func(a: int, b: int) -> None:
         raise ValueError("test error")
@@ -47,6 +52,7 @@ def test_log_error(capsys: Any) -> None:
 
 
 def test_log_error_file(capsys: Any) -> None:
+    """тест функции - декоратора log с функцией которая вызывает ошибку и задан файл для записи лога"""
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
         filename = tmp.name
 
