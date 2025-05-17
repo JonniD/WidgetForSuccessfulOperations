@@ -1,4 +1,8 @@
-def filter_by_currency(all_transactions: list[dict[str, str | int]], name_currency: str):
+from collections.abc import Generator, Iterator
+from typing import Any
+
+
+def filter_by_currency(all_transactions: list[dict[str, Any]], name_currency: str) -> Iterator[Any]:
     """Функция filter_by_currency, которая принимает на вход список словарей, представляющих транзакции.
     Функция возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной"""
     for transaction in all_transactions:
@@ -6,7 +10,7 @@ def filter_by_currency(all_transactions: list[dict[str, str | int]], name_curren
             yield transaction
 
 
-def transaction_descriptions(transactions: list[dict[str, str | int]]):
+def transaction_descriptions(transactions: list[dict[str, Any]]) -> Generator[Any]:
     """генератор transaction_descriptions, который принимает список словарей с транзакциями
     и возвращает описание каждой операции по очереди."""
     for transaction in transactions:
@@ -14,7 +18,7 @@ def transaction_descriptions(transactions: list[dict[str, str | int]]):
             yield transaction["description"]
 
 
-def card_number_generator(start: int, end: int):
+def card_number_generator(start: int, end: int) -> Generator[str]:
     """генератор card_number_generator, который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX,
     где X — цифра номера карты.
      Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""

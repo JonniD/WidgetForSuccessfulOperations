@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 
@@ -40,7 +42,7 @@ def processing_data_wrong() -> list[dict[str, str | int]]:
 
 
 @pytest.fixture()
-def transactions() -> list[dict[str, str | int]]:
+def transactions() -> list[dict[str, Any]]:
     """корректные транзакции"""
     return [
         {
