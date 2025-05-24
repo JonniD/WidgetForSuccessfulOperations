@@ -5,8 +5,7 @@ import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-api_token = os.getenv("API_TOKEN")
-api_url = os.getenv("API_URL")
+api_key = os.getenv("API_Key")
 
 
 def get_rub_transactions(operation: dict[str, Any]) -> Any:
@@ -24,9 +23,9 @@ def get_rub_transactions(operation: dict[str, Any]) -> Any:
         return float(amount)
     else:
         params = {"amount": amount, "to": "RUB", "from": code}
-        url = api_url
+        url = "https://api.apilayer.com/exchangerates_data/convert"
         headers = {
-            "apikey": api_token,
+            "apikey": api_key,
         }
         try:
             response = requests.get(url, headers=headers, params=params)
@@ -36,4 +35,3 @@ def get_rub_transactions(operation: dict[str, Any]) -> Any:
             return "Ошибка обращения к api"
 
 
-L

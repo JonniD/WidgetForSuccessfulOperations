@@ -1,6 +1,5 @@
 import json
 
-from src.external_api import get_rub_transactions
 
 
 def getting_financial_transaction_data(path_to_file: str) -> list[dict]:

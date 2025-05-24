@@ -94,7 +94,7 @@ def transactions() -> list[dict[str, Any]]:
 
 
 @pytest.fixture
-def correct_path() -> list[dict[str, Any]]:
+def json_sample() -> list[dict[str, Any]]:
     return [
         {
             "id": 441945886,
@@ -124,4 +124,61 @@ def correct_path() -> list[dict[str, Any]]:
             "to": "Счет 11776614605963066702",
         },
     ]
+
+
+@pytest.fixture
+def wrong_json_list() -> str:
+    return "{'name': 'John', 'age': 30, 'city': 'New York'}"
+
+
+@pytest.fixture
+def rub_conversion() -> dict[str, Any]:
+    return {
+        "id": 441945886,
+        "state": "EXECUTED",
+        "date": "2019-08-26T10:50:58.294041",
+        "operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}},
+        "description": "Перевод организации",
+        "from": "Maestro 1596837868705199",
+        "to": "Счет 64686473678894779589",
+    }
+
+
+@pytest.fixture
+def usd_conversion() -> dict[str, Any]:
+    return {
+        "id": 41428829,
+        "state": "EXECUTED",
+        "date": "2019-07-03T18:35:29.512364",
+        "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод организации",
+        "from": "MasterCard 7158300734726758",
+        "to": "Счет 35383033474447895560",
+    }
+
+
+@pytest.fixture
+def eur_conversion() -> dict[str, Any]:
+    return {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {"amount": "9824.07", "currency": {"name": "EUR", "code": "EUR"}},
+        "description": "Перевод организации",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    }
+
+
+@pytest.fixture
+def incorrect_conversion() -> dict[str, Any]:
+    return {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {"amount": "9824.07", "currency": {"name": "ENOCK", "code": "ENOCK"}},
+        "description": "Перевод организации",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    }
 
