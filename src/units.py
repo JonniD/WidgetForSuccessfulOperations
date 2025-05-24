@@ -1,8 +1,8 @@
 import json
-from typing import Any
 
 
-def get_info_about_transactions(path_to_file: str) -> Any:
+
+def get_info_about_transactions(path_to_file: str) -> dict:
     """Функция принимает путь к файлу с транзакциями и возвращает их"""
     try:
         with open(path_to_file) as file:
@@ -16,4 +16,5 @@ def get_info_about_transactions(path_to_file: str) -> Any:
         return []
 
 if __name__ == "__main__":
-    print(get_info_about_transactions(r"eugen\PycharmProjects\WidgetForSuccessfulOperations\data\operations.json"))
+    file = r"eugen\PycharmProjects\WidgetForSuccessfulOperations\data\operations.json"
+    print(get_info_about_transactions(file))
