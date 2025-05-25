@@ -1,20 +1,13 @@
 from typing import Any
-
-
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
 from src.external_api import get_rub_transactions
 
 
-
-def test_get_rub_transactions(rub_conversion) -> None:
-    assert get_rub_transactions(rub_conversion) == 31957.58
-
-
-@patch('requests.get')
-def test_get_rub_transactions_usd(mock_get, usd_conversion) -> None:
+@patch("requests.get")
+def test_get_rub_transactions_usd(mock_get: MagicMock, usd_conversion: dict[str, Any]) -> None:
     mock_get.return_value.json.return_value = {
         "success": True,
         "query": {"from": "USD", "to": "RUB", "amount": 8221.37},
@@ -25,8 +18,9 @@ def test_get_rub_transactions_usd(mock_get, usd_conversion) -> None:
     assert get_rub_transactions(usd_conversion) == 662846.295533
     mock_get.assert_called_once()
 
-@patch('requests.get')
-def test_get_rub_transactions_eur(mock_get, eur_conversion) -> None:
+
+@patch("requests.get")
+def test_get_rub_transactions_eur(mock_get: MagicMock, eur_conversion: dict[str, Any]) -> None:
     mock_get.return_value.json.return_value = {
         "success": True,
         "query": {"from": "EUR", "to": "RUB", "amount": 9824.07},
@@ -38,11 +32,12 @@ def test_get_rub_transactions_eur(mock_get, eur_conversion) -> None:
     mock_get.assert_called_once()
 
 
-@patch('requests.get')
-def test_get_rub_transactions_err(mock_get, incorrect_conversion: dict[str, Any]) -> None:
+@patch("requests.get")
+def test_get_rub_transactions_err(mock_get: MagicMock, incorrect_conversion: dict[str, Any]) -> None:
     mock_get.return_value.json.return_value = {"result": "Ошибка обращения к api"}
     assert get_rub_transactions(incorrect_conversion) == "Ошибка обращения к api"
     mock_get.assert_called_once()
+
 
 @pytest.mark.parametrize(
     "operation, expected",

@@ -1,8 +1,8 @@
 import json
+from typing import Any
 
 
-
-def getting_financial_transaction_data(path_to_file: str) -> list[dict]:
+def getting_financial_transaction_data(path_to_file: str) -> Any:
     """Функция принимает путь к файлу с транзакциями и возвращает их"""
     try:
         with open(path_to_file, "r", encoding="utf-8") as f:
@@ -14,5 +14,3 @@ def getting_financial_transaction_data(path_to_file: str) -> list[dict]:
     except json.JSONDecodeError:
         print("Ошибка декодирования файла")
         return []
-
-

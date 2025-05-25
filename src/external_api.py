@@ -33,5 +33,3 @@ def get_rub_transactions(operation: dict[str, Any]) -> Any:
             return response.json().get("result")
         except requests.exceptions.RequestException:
             return "Ошибка обращения к api"
-
-

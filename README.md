@@ -155,6 +155,35 @@ print(list_card_number) # Вывод: ['7596 2703 1839 2845', '7596 2703 1839 28
 Модуль `decorators` предоставляет функцию-декоратор:
 `log` для ведения логов. Записывает лог в файл, если задано имя файла, и в консоль - если нет.
 ---
+## Описание модуля `utils`
+---
+Модуль `utils` содержит функцию `getting_financial_transaction_data` для обработки JSON-файлов, включающих финансовые транзакции.
+
+### Пример использования модуля `utils`
+```python
+from src.utils import getting_financial_transaction_data
+transactions = getting_financial_transaction_data('data/operations.json')
+print(transactions) # Вывод списка словарей с данными о транзакциях.
+```
+---
+## Описание модуля `external_api`
+Модуль `external_api` содержит функцию `get_rub_transactions` для вывода суммы рублёвых транзакций, в том числе с возможностью конвертации из других валют посредством обращения к внешнему API.
+
+### Примеры использования модуля `external_api`
+```python
+from src.external_api import get_rub_transactions
+
+# Вывод суммы рублёвой транзакции
+rub = {"operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}}}
+amount_rubles = get_rub_transactions(rub)
+print(amount_rubles) # Вывод: 31957.58
+
+# Конвертация из USD в рубли и вывод суммы транзакции
+usd = {"operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}}}
+amount_rubles = get_rub_transactions(usd)
+print(amount_rubles) # Вывод: 662846.295533
+```
+---
 ## Тестирование функций
 В проект добавлена возможность протестировать все созданные функции с использованием pytest.
 
@@ -273,4 +302,18 @@ print(list_card_number) # Вывод: ['7596 2703 1839 2845', '7596 2703 1839 28
   * без указания файла
   * с указанием файла
 
+---
+### Тестирование функций модуля `utils`
+Тестирование функции `get_transactions` включает в себя:
+* Позитивный тест с использованием patch и фикстуры для проверки корректности обработки данных;
+* Негативные тесты:
+  * обработка некорректного формата данных (json.JSONDecodeError);
+  * работа функции при отсутствии файла (FileNotFoundError).
+---
+### Тестирование функций модуля `external_api`
+Тестирование функции `get_rub_transactions` включает в себя:
+* Позитивные тесты с использованием `mocker` библиотеки `pytest-mock`;
+* Негативные тесты:
+  * обработка некорректных данных;
+  * отработка ситуации, при которой не удается установить соединение с API.
 ---

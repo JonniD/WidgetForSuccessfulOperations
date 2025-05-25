@@ -94,7 +94,7 @@ def transactions() -> list[dict[str, Any]]:
 
 
 @pytest.fixture
-def json_sample() -> list[dict[str, Any]]:
+def json_example() -> list[dict[str, Any]]:
     return [
         {
             "id": 441945886,
@@ -181,4 +181,3 @@ def incorrect_conversion() -> dict[str, Any]:
         "from": "Счет 75106830613657916952",
         "to": "Счет 11776614605963066702",
     }
-
