@@ -182,6 +182,22 @@ print(amount_rubles) # Вывод: 31957.58
 usd = {"operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}}}
 amount_rubles = get_rub_transactions(usd)
 print(amount_rubles) # Вывод: 662846.295533
+
+```
+## Описание модуля `reading_CSV_and_XLSX_files`
+Модуль `reading_CSV_and_XLSX_files` содержит функции `read_CSV` и `read_EXCEL` считывающие финансовые операции из CSV и XLSX файлов и возвращающие список словарей.
+
+### Примеры использования модуля `reading_CSV_and_XLSX_files`
+```python
+from src.reading_CSV_and_XLSX_files import read_CSV, read_EXCEL
+
+# Обработка CSV-файла
+transactions = read_CSV('data/transactions.csv')
+print(transactions) # Вывод списка словарей с данными о транзакциях.
+
+# Обработка EXCEL-файла
+transactions = read_EXCEL('data/transactions_excel.xlsx')
+print(transactions) # Вывод списка словарей с данными о транзакциях.
 ```
 ---
 ## Тестирование функций
