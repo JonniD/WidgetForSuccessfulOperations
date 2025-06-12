@@ -188,16 +188,17 @@ print(amount_rubles) # Вывод: 662846.295533
 Модуль `reading_CSV_and_XLSX_files` содержит функции `read_CSV` и `read_EXCEL` считывающие финансовые операции из CSV и XLSX файлов и возвращающие список словарей.
 
 ### Примеры использования модуля `reading_CSV_and_XLSX_files`
+
 ```python
-from src.reading_CSV_and_XLSX_files import read_CSV, read_EXCEL
+from src.reading_csv_and_xlsx_files import read_CSV, read_EXCEL
 
 # Обработка CSV-файла
 transactions = read_CSV('data/transactions.csv')
-print(transactions) # Вывод списка словарей с данными о транзакциях.
+print(transactions)  # Вывод списка словарей с данными о транзакциях.
 
 # Обработка EXCEL-файла
 transactions = read_EXCEL('data/transactions_excel.xlsx')
-print(transactions) # Вывод списка словарей с данными о транзакциях.
+print(transactions)  # Вывод списка словарей с данными о транзакциях.
 ```
 ---
 ## Тестирование функций
