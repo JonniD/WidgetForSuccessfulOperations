@@ -5,9 +5,11 @@ from typing import Any
 def filter_by_currency(all_transactions: list[dict[str, Any]], name_currency: str) -> Iterator[Any]:
     """Функция filter_by_currency, которая принимает на вход список словарей, представляющих транзакции.
     Функция возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной"""
-    for transaction in all_transactions:
-        if transaction["operationAmount"]["currency"]["name"] == name_currency:
-            yield transaction
+    return filter(
+        lambda item: item.get("operationAmount", {}).get("currency", {}).get("code") == name_currency.upper()
+        or item.get("currency_code") == name_currency.upper(),
+        all_transactions,
+    )
 
 
 def transaction_descriptions(transactions: list[dict[str, Any]]) -> Generator[Any]:

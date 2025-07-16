@@ -1,6 +1,6 @@
 import json
-from typing import Any
 import logging
+from typing import Any
 
 logger = logging.getLogger("utils")
 logger.setLevel(logging.INFO)
