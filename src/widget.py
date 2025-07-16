@@ -1,3 +1,6 @@
+import re
+from datetime import datetime
+
 from src.masks import get_mask_account, get_mask_card_number
 
 
@@ -26,9 +29,7 @@ def get_date(date_and_time: str) -> str:
     Функция, которая принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
     и возвращает строку с датой в формате "ДД.ММ.ГГГГ"
     """
-    if len(date_and_time) == 26 and date_and_time[4] == "-" and date_and_time[7] == "-":
-        date_list = date_and_time.split("-")
-        date = f"{date_list[2][:2]}.{date_list[1]}.{date_list[0]}"
-        return date
+    if re.match(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}", date_and_time):
+        return datetime.fromisoformat(date_and_time).strftime("%d.%m.%Y")
     else:
         return "Некорректный формат даты."
